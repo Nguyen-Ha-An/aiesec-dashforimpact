@@ -30,6 +30,13 @@
   --color-footer-text: #F4F0E6;
   --color-footer-text-muted: rgba(244, 240, 230, 0.62);
   --color-footer-accent: #B7C9A0;
+
+  /* Fixed (non-swapping) light text/surface tokens for use on a fixed --color-moss
+     band (e.g. a stat/highlight section). --color-cream-card swaps to a dark tone
+     in dark mode, so it must never be used as text color against a fixed --color-moss
+     background - use these instead. */
+  --color-on-moss: #FAF8F2;
+  --color-on-moss-muted: #B7C9A0;
 }
 
 @media (prefers-color-scheme: dark) {

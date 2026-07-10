@@ -40,7 +40,7 @@ img, svg { max-width: 100%; display: block; }
   font-size: 1rem;
 }
 .btn:active { transform: scale(0.98); }
-.btn-primary { background: var(--color-moss); color: var(--color-cream-card); }
+.btn-primary { background: var(--color-moss); color: var(--color-on-moss); }
 .btn-primary:hover { background: var(--color-moss-dark); }
 .btn-secondary { background: transparent; color: var(--color-moss); border-color: var(--color-moss); }
 .btn-secondary:hover { background: var(--color-sage); }
