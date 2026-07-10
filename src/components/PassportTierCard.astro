@@ -13,9 +13,9 @@ interface Props {
 const { tier, active = false, description, missions = [] } = Astro.props;
 
 const tierIcons: Record<TierName, string> = {
-  'Mầm Non': 'ph:seedling',
-  'Cây Trưởng Thành': 'ph:plant',
-  'Cây Cổ Thụ': 'ph:tree',
+  'Mầm Non': 'ph:plant',
+  'Cây Trưởng Thành': 'ph:tree',
+  'Cây Cổ Thụ': 'ph:tree-evergreen',
 };
 ---
 <div class={`tier-card ${active ? 'tier-card--active' : 'tier-card--inactive'}`}>

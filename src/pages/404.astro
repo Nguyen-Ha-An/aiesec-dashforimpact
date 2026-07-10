@@ -1,0 +1,23 @@
+---
+import Layout from '../components/Layout.astro';
+import { withBase } from '../lib/base';
+---
+<Layout title="Không tìm thấy trang" description="Trang bạn tìm không tồn tại trên Ametia Green.">
+  <div class="container not-found">
+    <h1>Không tìm thấy trang này</h1>
+    <p>Đường dẫn bạn truy cập không tồn tại hoặc đã được di chuyển.</p>
+    <a class="btn btn-primary" href={withBase('/')}>Về trang chủ</a>
+  </div>
+</Layout>
+
+<style>
+  .not-found {
+    padding-block: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    min-height: 40vh;
+    justify-content: center;
+  }
+</style>
