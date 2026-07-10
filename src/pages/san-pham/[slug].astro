@@ -1,0 +1,158 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '../../components/Layout.astro';
+import PlaceholderArt from '../../components/PlaceholderArt.astro';
+import ProductTimeline from '../../components/ProductTimeline.astro';
+import QrSimulator from '../../components/QrSimulator.astro';
+import { products, type Product } from '../../data/products';
+import { withBase } from '../../lib/base';
+
+export function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const priceLabel = `${product.priceVnd.toLocaleString('vi-VN')} VNĐ`;
+const productUrl = withBase(`san-pham/${product.slug}/`);
+---
+<Layout title={product.name} description={`${product.name} - ${product.materials}`}>
+  <article class="container product-page">
+    <div class="product-page__hero">
+      <PlaceholderArt
+        seed={product.slug}
+        caption={product.name}
+        expectedFile={`${product.slug}.jpg`}
+        aspect="portrait"
+      />
+      <div class="product-page__intro">
+        <h1>{product.name}</h1>
+        <p class="product-page__price">{priceLabel}</p>
+        <p class="product-page__sku">Mã sản phẩm: <span>{product.sku}</span></p>
+
+        <section class="product-page__block">
+          <h2>Thành phần chất liệu</h2>
+          <p>{product.materials}</p>
+        </section>
+
+        <section class="product-page__block">
+          <h2>Đặc điểm sử dụng</h2>
+          <ul class="icon-list">
+            {product.features.map((f) => (
+              <li>
+                <Icon name="ph:check" size={18} />
+                <span>{f.label}</span>
+                {f.simulated && <span class="mock-label">Thông tin mô phỏng</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section class="product-page__block">
+          <h2>Hướng dẫn chăm sóc</h2>
+          <ul class="icon-list">
+            {product.care.map((c) => (
+              <li>
+                <Icon name="ph:drop" size={18} />
+                <span>{c}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <button type="button" class="btn btn-primary" id="qr-toggle">
+          <Icon name="ph:qr-code" size={18} />
+          Quét QR để khám phá
+        </button>
+        <div id="qr-panel" hidden>
+          <QrSimulator url={productUrl} label={product.name} />
+        </div>
+      </div>
+    </div>
+
+    <section class="product-page__block product-page__story">
+      <h2>Câu chuyện chất liệu</h2>
+      <h3>{product.story.title}</h3>
+      {product.story.paragraphs.map((p) => <p>{p}</p>)}
+    </section>
+
+    <section class="product-page__block">
+      <h2>Hành trình sản xuất</h2>
+      <ProductTimeline steps={product.timeline} />
+    </section>
+  </article>
+</Layout>
+
+<style>
+  .product-page {
+    padding-block: var(--space-6) var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .product-page__hero {
+    display: grid;
+    gap: var(--space-6);
+  }
+  .product-page__price {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    color: var(--color-moss);
+    margin: var(--space-2) 0;
+  }
+  .product-page__sku span {
+    font-family: var(--font-mono);
+  }
+  .product-page__block h2 {
+    font-size: 1.15rem;
+    margin-bottom: var(--space-3);
+  }
+  .icon-list {
+    list-style: none;
+    margin: 0 0 var(--space-4);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .icon-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-charcoal);
+  }
+  .icon-list :global(svg) {
+    color: var(--color-moss);
+    flex-shrink: 0;
+  }
+  #qr-panel {
+    margin-top: var(--space-4);
+  }
+  .product-page__story h3 {
+    font-size: 1rem;
+    color: var(--color-moss);
+    margin: 0 0 var(--space-3);
+  }
+
+  @media (min-width: 900px) {
+    .product-page__hero {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+      align-items: start;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('qr-toggle');
+  const panel = document.getElementById('qr-panel');
+  toggle?.addEventListener('click', () => {
+    if (!panel) return;
+    panel.hidden = !panel.hidden;
+  });
+</script>
