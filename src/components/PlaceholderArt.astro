@@ -1,0 +1,73 @@
+---
+interface Props {
+  seed: string;
+  caption: string;
+  expectedFile: string;
+  aspect?: 'square' | 'portrait' | 'wide';
+}
+
+const { seed, caption, expectedFile, aspect = 'square' } = Astro.props;
+
+function hashString(input: string): number {
+  let hash = 2166136261;
+  for (let i = 0; i < input.length; i++) {
+    hash ^= input.charCodeAt(i);
+    hash = Math.imul(hash, 16777619);
+  }
+  return Math.abs(hash);
+}
+
+const dims: Record<string, [number, number]> = {
+  square: [400, 400],
+  portrait: [400, 500],
+  wide: [600, 400],
+};
+const [w, h] = dims[aspect];
+
+const hash = hashString(seed);
+const hueShift = hash % 40; // small rotation so each seed reads as a distinct-but-brand-safe tint
+const cx1 = (hash % 60) + w * 0.2;
+const cy1 = ((hash >> 4) % 60) + h * 0.25;
+const cx2 = w - ((hash >> 8) % 80) - w * 0.15;
+const cy2 = h - ((hash >> 12) % 80) - h * 0.2;
+const r1 = 70 + (hash % 40);
+const r2 = 55 + ((hash >> 6) % 35);
+const rotate = hash % 360;
+---
+<figure class="placeholder-art" style={`--hue-shift: ${hueShift}deg;`}>
+  <svg viewBox={`0 0 ${w} ${h}`} role="img" aria-label={caption} preserveAspectRatio="xMidYMid slice">
+    <rect x="0" y="0" width={w} height={h} fill="var(--color-cream-card)" />
+    <g style="filter: hue-rotate(var(--hue-shift));" transform={`rotate(${rotate % 12} ${w / 2} ${h / 2})`}>
+      <circle cx={cx1} cy={cy1} r={r1} fill="var(--color-sage)" opacity="0.55" />
+      <circle cx={cx2} cy={cy2} r={r2} fill="var(--color-moss)" opacity="0.35" />
+      <path
+        d={`M ${w * 0.5} ${h * 0.15} C ${w * 0.75} ${h * 0.25}, ${w * 0.78} ${h * 0.6}, ${w * 0.5} ${h * 0.85} C ${w * 0.22} ${h * 0.6}, ${w * 0.25} ${h * 0.25}, ${w * 0.5} ${h * 0.15} Z`}
+        fill="none"
+        stroke="var(--color-coffee)"
+        stroke-width="1.5"
+        opacity="0.5"
+      />
+    </g>
+    <rect x="8" y="8" width={w - 16} height={h - 16} fill="none" stroke="var(--color-charcoal-soft)" stroke-width="1.5" stroke-dasharray="6 6" opacity="0.4" />
+  </svg>
+  <figcaption class="mock-label placeholder-art__caption">Ảnh mẫu - thay bằng {expectedFile}</figcaption>
+</figure>
+
+<style>
+  .placeholder-art {
+    position: relative;
+    margin: 0;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+  }
+  .placeholder-art svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .placeholder-art__caption {
+    position: absolute;
+    left: var(--space-3);
+    bottom: var(--space-3);
+  }
+</style>
