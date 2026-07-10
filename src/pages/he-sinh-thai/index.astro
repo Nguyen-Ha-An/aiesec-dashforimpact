@@ -1,0 +1,340 @@
+---
+import Layout from '../../components/Layout.astro';
+import PlaceholderArt from '../../components/PlaceholderArt.astro';
+import PassportTierCard from '../../components/PassportTierCard.astro';
+import FundProjectProgress from '../../components/FundProjectProgress.astro';
+import { fundData } from '../../data/fund';
+import { withBase } from '../../lib/base';
+
+const journeySteps = [
+  {
+    stage: 'Nguồn gốc nguyên liệu',
+    description:
+      'Ametia Green ưu tiên chọn sợi tái chế và các vật liệu có nguồn gốc rõ ràng từ nhà cung cấp đã được đánh giá. Mỗi lô nguyên liệu đều được ghi nhận lại để dễ truy vết sau này.',
+  },
+  {
+    stage: 'Quy trình sản xuất',
+    description:
+      'Nguyên liệu được xử lý tại xưởng đối tác theo quy trình hạn chế hóa chất và tiết kiệm nước ở mức có thể kiểm soát. Đội ngũ kỹ thuật theo dõi từng công đoạn để giảm hao hụt.',
+  },
+  {
+    stage: 'Cắt may và hoàn thiện',
+    description:
+      'Vải được cắt theo rập tối ưu nhằm giảm phần vải thừa, phần vụn còn lại được gom riêng cho các dự án tái chế của Green Loop Fund. Khâu hoàn thiện được kiểm tra chất lượng thủ công.',
+  },
+  {
+    stage: 'Đóng gói và vận chuyển',
+    description:
+      'Sản phẩm được đóng gói bằng vật liệu ưu tiên có thể tái sử dụng hoặc tái chế trong điều kiện thực tế hiện có. Đơn vị vận chuyển được lựa chọn dựa trên tuyến đường gần để giảm quãng đường di chuyển.',
+  },
+];
+---
+<Layout
+  title="Hệ sinh thái"
+  description="Hành trình vật liệu, hộ chiếu xanh và Green Loop Fund của Ametia Green."
+>
+  <section id="mo-khoa" class="unlock">
+    <div class="container unlock__grid">
+      <div class="unlock__art">
+        <PlaceholderArt
+          seed="packaging-concept"
+          caption="Bao bì rong biển và bã cà phê"
+          expectedFile="packaging-concept.jpg"
+          aspect="square"
+        />
+      </div>
+      <div class="unlock__text">
+        <p class="mock-label">Đang mở khóa</p>
+        <h1>Bao bì làm từ rong biển và bã cà phê</h1>
+        <p>
+          Đội ngũ vật liệu của Ametia Green đang thử nghiệm một mẫu bao bì kết hợp
+          chiết xuất rong biển và bã cà phê thu gom từ các quán cà phê đối tác.
+          Mục tiêu là tìm ra một lớp bao bì mềm, có thể thay thế một phần bao bì
+          gốc dầu mỏ đang dùng cho một số dòng sản phẩm.
+        </p>
+        <p>
+          Đây mới là giai đoạn thử nghiệm trong phòng thí nghiệm, chưa áp dụng
+          đại trà cho toàn bộ sản phẩm. Chúng tôi sẽ cập nhật tiến độ khi có kết
+          quả kiểm nghiệm chính thức.
+        </p>
+        <div class="unlock__callout">
+          <p class="unlock__callout-title">
+            <span class="mock-label">Ý tưởng vật liệu đang được thử nghiệm</span>
+          </p>
+          <p class="unlock__callout-text">
+            Khả năng phân hủy hoàn toàn và đặc tính không nhựa của mẫu bao bì này
+            chưa được xác nhận bởi đơn vị kiểm nghiệm độc lập. Thông tin trên
+            trang này chỉ mang tính mô tả ý tưởng, không phải cam kết về sản phẩm
+            đang bán.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kham-pha" class="journey">
+    <div class="container">
+      <p class="mock-label">Khám phá</p>
+      <h2>Hành trình một sản phẩm Ametia Green</h2>
+      <p>
+        Bốn chặng dưới đây mô tả khái quát hành trình chung của sản phẩm Ametia
+        Green, từ lúc chọn nguyên liệu cho đến khi đến tay người mặc. Vuốt ngang
+        để xem từng chặng.
+      </p>
+    </div>
+    <div class="journey__track">
+      {journeySteps.map((step, index) => (
+        <article class="journey__stage">
+          <span class="journey__index">{`0${index + 1}`}</span>
+          <h3 class="journey__title">{step.stage}</h3>
+          <p class="journey__desc">{step.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="tham-gia" class="passport">
+    <div class="container">
+      <p class="mock-label">Tham gia</p>
+      <h2>Hộ chiếu xanh của bạn</h2>
+      <p>
+        Mỗi lần chăm sóc, sửa chữa hoặc trả lại sản phẩm cũ, bạn tích lũy nhiệm
+        vụ và tiến lên các cấp độ hộ chiếu xanh dưới đây.
+      </p>
+      <div class="passport__tiers">
+        <div class="passport__tier passport__tier--sm">
+          <PassportTierCard
+            tier="Mầm Non"
+            active={false}
+            description="Mới bắt đầu hành trình, chưa hoàn thành nhiệm vụ nào. Hãy thử mua sản phẩm đầu tiên hoặc quét mã QR để khởi động hộ chiếu."
+          />
+        </div>
+        <div class="passport__tier passport__tier--lg">
+          <PassportTierCard
+            tier="Cây Trưởng Thành"
+            active={true}
+            description="Đã hoàn thành một số nhiệm vụ chăm sóc và tham gia cộng đồng, đang trên đà lên cấp độ tiếp theo."
+            missions={[
+              'Tham gia 1 buổi workshop sửa chữa quần áo',
+              'Thu hồi 1 sản phẩm cũ tại điểm thu hồi',
+              'Quét mã QR truy xuất hành trình 3 sản phẩm',
+            ]}
+          />
+        </div>
+        <div class="passport__tier passport__tier--md">
+          <PassportTierCard
+            tier="Cây Cổ Thụ"
+            active={false}
+            description="Đã hoàn thành phần lớn nhiệm vụ trong hệ sinh thái, trở thành người đồng hành lâu năm của Ametia Green."
+          />
+        </div>
+      </div>
+      <p class="passport__note">
+        <span class="mock-label">Đây là giao diện mô phỏng</span>
+        Hiện chưa có hệ thống tài khoản thật, các cấp độ và nhiệm vụ trên chỉ để
+        minh họa cách hộ chiếu xanh sẽ hoạt động trong tương lai.
+      </p>
+      <a class="btn btn-secondary" href={withBase('ho-chieu-xanh/')}>Xem hồ sơ đầy đủ</a>
+    </div>
+  </section>
+
+  <section id="lan-toa" class="impact">
+    <div class="container">
+      <p class="mock-label">Dữ liệu minh họa cho prototype</p>
+      <h2>Lan tỏa cùng Green Loop Fund</h2>
+      <div class="impact__stats">
+        <div class="impact__stat">
+          <span class="impact__number">{fundData.balanceVnd.toLocaleString('vi-VN')} VNĐ</span>
+          <span class="impact__label">Số dư quỹ hiện tại</span>
+        </div>
+        <div class="impact__stat">
+          <span class="impact__number">{fundData.itemsCollected}</span>
+          <span class="impact__label">Sản phẩm đã thu hồi</span>
+        </div>
+      </div>
+      <div class="impact__projects">
+        <div class="card">
+          <FundProjectProgress project={fundData.projects[0]} />
+        </div>
+        <div class="card">
+          <FundProjectProgress project={fundData.projects[2]} />
+        </div>
+      </div>
+      <a class="btn btn-primary" href={withBase('green-loop-fund/')}>Xem chi tiết quỹ</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Section 1: mo-khoa - asymmetric image + text */
+  .unlock {
+    padding-block: var(--space-8);
+  }
+  .unlock__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    align-items: start;
+  }
+  .unlock__text p:first-of-type {
+    margin-bottom: var(--space-3);
+  }
+  .unlock__callout {
+    background: var(--color-cream-card);
+    border-left: 4px solid var(--color-moss);
+    border-radius: var(--radius-card);
+    padding: var(--space-5);
+    margin-top: var(--space-4);
+  }
+  .unlock__callout-title {
+    margin: 0 0 var(--space-3);
+  }
+  .unlock__callout-text {
+    margin: 0;
+    color: var(--color-charcoal-soft);
+    font-size: 0.95rem;
+    max-width: none;
+  }
+
+  @media (min-width: 900px) {
+    .unlock__grid {
+      grid-template-columns: 5fr 7fr;
+      gap: var(--space-7);
+    }
+  }
+
+  /* Section 2: kham-pha - horizontal scroll-snap timeline */
+  .journey {
+    padding-block: var(--space-8);
+    background: var(--color-cream-card);
+  }
+  .journey__track {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding-inline: var(--space-4);
+    margin-top: var(--space-6);
+  }
+  .journey__stage {
+    background: var(--color-cream);
+    border-radius: var(--radius-card);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .journey__index {
+    font-family: var(--font-mono);
+    color: var(--color-moss);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+  }
+  .journey__title {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  .journey__desc {
+    margin: 0;
+    color: var(--color-charcoal-soft);
+    font-size: 0.92rem;
+    max-width: none;
+  }
+
+  @media (min-width: 600px) {
+    .journey__track {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: var(--space-5);
+      padding-inline: var(--space-6);
+      padding-bottom: var(--space-4);
+    }
+    .journey__stage {
+      flex: 0 0 280px;
+      scroll-snap-align: start;
+    }
+  }
+
+  /* Section 3: tham-gia - three uneven tier cards */
+  .passport {
+    padding-block: var(--space-8);
+  }
+  .passport__tiers {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    align-items: start;
+  }
+  .passport__note {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-5);
+    color: var(--color-charcoal-soft);
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 900px) {
+    .passport__tiers {
+      grid-template-columns: 0.8fr 1.3fr 1fr;
+    }
+    .passport__tier--lg {
+      transform: translateY(calc(var(--space-3) * -1));
+    }
+  }
+
+  /* Section 4: lan-toa - big stat numbers */
+  .impact {
+    padding-block: var(--space-8);
+    background: var(--color-moss);
+    color: var(--color-cream-card);
+  }
+  .impact :global(.mock-label) {
+    background: var(--color-cream-card);
+    color: var(--color-charcoal);
+  }
+  .impact h2 {
+    color: var(--color-cream-card);
+    margin-top: var(--space-3);
+  }
+  .impact__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    margin-block: var(--space-6);
+  }
+  .impact__stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  .impact__number {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .impact__label {
+    font-size: 0.9rem;
+    color: var(--color-sage);
+  }
+  .impact__projects {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+  .impact__projects .card {
+    background: var(--color-cream-card);
+    color: var(--color-charcoal);
+  }
+
+  @media (min-width: 600px) {
+    .impact__projects {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

@@ -1,26 +1,182 @@
 ---
 import Layout from '../components/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
-import ProductTimeline from '../components/ProductTimeline.astro';
-import EventCard from '../components/EventCard.astro';
-import PassportTierCard from '../components/PassportTierCard.astro';
-import FundProjectProgress from '../components/FundProjectProgress.astro';
-import MissionBadge from '../components/MissionBadge.astro';
-import QrSimulator from '../components/QrSimulator.astro';
+import PlaceholderArt from '../components/PlaceholderArt.astro';
+import { withBase } from '../lib/base';
 import { products } from '../data/products';
-import { events } from '../data/events';
-import { fundData } from '../data/fund';
+
+const journeySteps = [
+  {
+    label: 'Mở khóa',
+    description: 'Quét mã trên sản phẩm để mở khóa hành trình vật liệu, từ nguồn gốc đến ngày may hoàn thiện.',
+    href: withBase('he-sinh-thai/') + '#mo-khoa',
+  },
+  {
+    label: 'Khám phá',
+    description: 'Theo dõi từng chặng đường của chất liệu, quy trình dệt may và những con người phía sau sản phẩm.',
+    href: withBase('he-sinh-thai/') + '#kham-pha',
+  },
+  {
+    label: 'Tham gia',
+    description: 'Tham gia workshop, sự kiện thu hồi và các hoạt động cộng đồng của Ametia Green.',
+    href: withBase('he-sinh-thai/') + '#tham-gia',
+  },
+  {
+    label: 'Lan tỏa',
+    description: 'Chia sẻ hành trình mặc bền vững của bạn để lan tỏa lựa chọn rõ ràng hơn tới nhiều người khác.',
+    href: withBase('he-sinh-thai/') + '#lan-toa',
+  },
+];
 ---
-<Layout title="Trang chủ" description="Ametia Green - thời trang ứng dụng có trách nhiệm.">
-  <div class="container" style="display: grid; gap: 2rem; margin-block: 2rem;">
-    <ProductCard product={products[0]} />
-    <ProductTimeline steps={products[0].timeline} />
-    <EventCard event={events[0]} />
-    <EventCard event={events[2]} />
-    <PassportTierCard tier="Cây Trưởng Thành" active description="Đã hoàn thành một số nhiệm vụ chăm sóc và sửa chữa." missions={['Tham gia 1 workshop', 'Thu hồi 1 sản phẩm cũ']} />
-    <FundProjectProgress project={fundData.projects[0]} />
-    <MissionBadge label="Chăm sóc" done />
-    <MissionBadge label="Sửa chữa" />
-    <QrSimulator url="https://nguyen-ha-an.github.io/aiesec-dashforimpact/san-pham/tui-tote/" label="Túi tote" />
-  </div>
+<Layout title="Trang chủ" description="Ametia Green - Green Capsule Collection, thời trang ứng dụng có trách nhiệm.">
+  <section class="hero container">
+    <div class="hero__content">
+      <h1>Mặc lâu hơn. Chọn rõ hơn.</h1>
+      <p class="hero__intro">
+        Ametia Green thiết kế thời trang ứng dụng dễ phối, bền theo thời gian và minh bạch về nguồn gốc từng chất liệu.
+        Mỗi sản phẩm trong bộ sưu tập Green Capsule đi kèm hành trình vật liệu rõ ràng để bạn chọn lựa an tâm hơn.
+      </p>
+      <a class="btn btn-primary" href={withBase('he-sinh-thai/')}>Khám phá hành trình sản phẩm</a>
+    </div>
+    <div class="hero__art">
+      <PlaceholderArt
+        seed="hero-collection"
+        caption="Green Capsule Collection"
+        expectedFile="hero-collection.jpg"
+        aspect="portrait"
+      />
+    </div>
+  </section>
+
+  <section class="about eyebrow-free-section container">
+    <h2>Về Ametia Green</h2>
+    <p>
+      Ametia Green ra đời từ mong muốn làm thời trang ứng dụng gọn gàng, dễ mặc hàng ngày mà vẫn có trách nhiệm với môi trường xung quanh.
+      Chúng tôi ưu tiên chất liệu tái chế, quy trình sản xuất tinh gọn và thông tin sản phẩm minh bạch thay vì những lời hứa mơ hồ.
+    </p>
+    <a class="text-link" href={withBase('gioi-thieu/')}>Tìm hiểu thêm</a>
+  </section>
+
+  <section class="collection eyebrow-free-section container">
+    <h2>Bộ sưu tập Green Capsule</h2>
+    <div class="collection__grid">
+      {products.map((product) => (
+        <ProductCard product={product} />
+      ))}
+    </div>
+  </section>
+
+  <section class="journey eyebrow-free-section container">
+    <h2>Hành trình hệ sinh thái</h2>
+    <div class="journey__grid">
+      {journeySteps.map((step, index) => (
+        <a
+          class="journey__item"
+          class:list={{ 'journey__item--wide': index === 0 }}
+          href={step.href}
+        >
+          <span class="journey__label">{step.label}</span>
+          <p class="journey__description">{step.description}</p>
+        </a>
+      ))}
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .hero {
+    display: grid;
+    gap: var(--space-6);
+    align-items: center;
+    padding-block: var(--space-7);
+  }
+  .hero__content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+  .hero__content h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+    max-width: 14ch;
+  }
+  .hero__intro {
+    color: var(--color-charcoal-soft);
+    max-width: 50ch;
+  }
+  .hero__art {
+    max-width: 360px;
+  }
+
+  .about h2,
+  .collection h2,
+  .journey h2 {
+    margin-bottom: var(--space-4);
+  }
+  .text-link {
+    display: inline-block;
+    font-weight: 600;
+    color: var(--color-moss);
+  }
+
+  .collection__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  .journey__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  .journey__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    background: var(--color-cream-card);
+    border-radius: var(--radius-card);
+    padding: var(--space-5);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.15s ease;
+  }
+  .journey__item:hover {
+    transform: translateY(-2px);
+  }
+  .journey__label {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-moss);
+  }
+  .journey__description {
+    margin: 0;
+    color: var(--color-charcoal-soft);
+    font-size: 0.95rem;
+  }
+
+  @media (min-width: 600px) {
+    .collection__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .journey__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .hero {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+    .collection__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .journey__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .journey__item--wide {
+      grid-column: span 2;
+    }
+  }
+</style>

@@ -1,0 +1,141 @@
+---
+import Layout from '../../components/Layout.astro';
+import FundProjectProgress from '../../components/FundProjectProgress.astro';
+import { fundData } from '../../data/fund';
+
+const balanceLabel = `${fundData.balanceVnd.toLocaleString('vi-VN')} VNĐ`;
+---
+<Layout
+  title="Green Loop Fund"
+  description="Green Loop Fund tái đầu tư từ chương trình thu hồi sản phẩm của Ametia Green vào các dự án cộng đồng và môi trường."
+>
+  <section class="container fund-intro">
+    <p class="mock-label">Dữ liệu minh họa cho prototype</p>
+    <h1>Green Loop Fund</h1>
+    <p class="fund-intro__lead">
+      Green Loop Fund là quỹ được hình thành từ giá trị sản phẩm cũ mà khách hàng thu hồi lại qua chương trình đổi
+      trả của Ametia Green. Số tiền và vật liệu thu được sẽ tái đầu tư vào các dự án cộng đồng và môi trường có liên
+      quan trực tiếp đến vòng lặp sản xuất của thương hiệu, thay vì chuyển ra ngoài phạm vi hoạt động.
+    </p>
+  </section>
+
+  <section class="container fund-stats">
+    <div class="fund-stats__item card">
+      <span class="fund-stats__label">Số dư quỹ hiện tại</span>
+      <span class="fund-stats__value">{balanceLabel}</span>
+    </div>
+    <div class="fund-stats__item card">
+      <span class="fund-stats__label">Sản phẩm đã thu hồi</span>
+      <span class="fund-stats__value">{fundData.itemsCollected} sản phẩm</span>
+    </div>
+  </section>
+
+  <section class="container fund-projects">
+    <h2>Các dự án đang được tài trợ</h2>
+    <div class="fund-projects__grid">
+      {fundData.projects.map((project) => (
+        <div class="card fund-projects__card">
+          <FundProjectProgress project={project} />
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="container fund-updates">
+    <h2>Nhật ký cập nhật hàng tuần</h2>
+    <p class="mock-label">Dữ liệu minh họa cho prototype</p>
+    <div class="fund-updates__log">
+      {fundData.weeklyUpdates.map((update) => (
+        <div class="fund-updates__row">
+          <span class="fund-updates__week">{update.weekLabel}</span>
+          <span class="fund-updates__note">{update.note}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .fund-intro {
+    margin-block: var(--space-6) var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+  .fund-intro__lead {
+    max-width: 68ch;
+    color: var(--color-charcoal-soft);
+    line-height: 1.6;
+  }
+
+  .fund-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+  @media (min-width: 600px) {
+    .fund-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .fund-stats__item {
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .fund-stats__label {
+    font-size: 0.9rem;
+    color: var(--color-charcoal-soft);
+  }
+  .fund-stats__value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--color-moss-dark);
+  }
+
+  .fund-projects {
+    margin-bottom: var(--space-6);
+  }
+  .fund-projects__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+  }
+  @media (min-width: 900px) {
+    .fund-projects__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .fund-projects__card {
+    padding: var(--space-5);
+  }
+
+  .fund-updates {
+    margin-bottom: var(--space-7);
+  }
+  .fund-updates__log {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+  }
+  @media (min-width: 600px) {
+    .fund-updates__log {
+      grid-template-columns: 160px 1fr;
+      row-gap: var(--space-3);
+      column-gap: var(--space-5);
+    }
+  }
+  .fund-updates__week {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--color-moss-dark);
+  }
+  .fund-updates__note {
+    color: var(--color-charcoal-soft);
+    line-height: 1.5;
+  }
+</style>

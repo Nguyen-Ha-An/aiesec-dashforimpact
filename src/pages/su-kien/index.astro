@@ -1,0 +1,87 @@
+---
+import Layout from '../../components/Layout.astro';
+import EventCard from '../../components/EventCard.astro';
+import { events } from '../../data/events';
+---
+<Layout
+  title="Sự kiện"
+  description="Các buổi workshop, điểm thu hồi lưu động và sự kiện cộng đồng của Ametia Green."
+>
+  <div class="container su-kien-page">
+    <header class="su-kien-header">
+      <h1>Sự kiện</h1>
+      <p>
+        Theo dõi lịch workshop sửa chữa, điểm thu hồi lưu động và các buổi trò chuyện cộng đồng
+        của Ametia Green. Đăng ký bên dưới để giữ chỗ cho những sự kiện đang mở.
+      </p>
+    </header>
+
+    <div class="su-kien-grid">
+      {events.map((event) => (
+        <EventCard event={event} />
+      ))}
+    </div>
+  </div>
+
+  <dialog id="rsvp-dialog">
+    <h2>Xác nhận đăng ký</h2>
+    <p>
+      Bạn đã đăng ký tham gia <strong id="rsvp-event-name"></strong>. Đây là đăng ký mô phỏng cho
+      bản dựng thử nghiệm, không có dữ liệu nào được gửi đi.
+    </p>
+    <button id="rsvp-close" class="btn btn-secondary" type="button">Đóng</button>
+  </dialog>
+</Layout>
+
+<style>
+  .su-kien-page {
+    display: grid;
+    gap: var(--space-6);
+    margin-block: var(--space-6);
+  }
+  .su-kien-header {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 60ch;
+  }
+  .su-kien-header h1 {
+    font-family: var(--font-display);
+    margin: 0;
+  }
+  .su-kien-header p {
+    margin: 0;
+    color: var(--color-charcoal-soft);
+  }
+  .su-kien-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+  @media (min-width: 900px) {
+    .su-kien-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  dialog#rsvp-dialog {
+    max-width: 32rem;
+    width: 90%;
+    border: none;
+    border-radius: var(--radius-card);
+    padding: var(--space-5);
+    background: var(--color-cream-card);
+    color: var(--color-charcoal);
+  }
+  dialog#rsvp-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  dialog#rsvp-dialog h2 {
+    font-family: var(--font-display);
+    margin-top: 0;
+  }
+</style>
+
+<script>
+  import { initRsvpModal } from '../../lib/rsvpModal';
+  initRsvpModal(document);
+</script>

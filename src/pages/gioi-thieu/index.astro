@@ -1,0 +1,120 @@
+---
+import Layout from '../../components/Layout.astro';
+import PlaceholderArt from '../../components/PlaceholderArt.astro';
+---
+<Layout
+  title="Giới thiệu"
+  description="Ametia Green là thời trang ứng dụng có trách nhiệm dành cho người trẻ đi làm, minh bạch về nguồn gốc nguyên liệu."
+>
+  <div class="container intro-page">
+    <header class="intro-page__header">
+      <p class="mock-label">Trang giới thiệu</p>
+      <h1>Giới thiệu về Ametia Green</h1>
+    </header>
+
+    <section class="intro-section">
+      <h2>Ametia Green dành cho ai</h2>
+      <p>
+        Ametia Green là thời trang ứng dụng có trách nhiệm, được xây dựng cho
+        <strong>người trẻ đi làm</strong> cần những món đồ dễ phối, mặc được lâu dài
+        và không chạy theo vòng xoay liên tục của thời trang nhanh (fast fashion).
+        Thay vì đổi tủ đồ theo mùa, chúng tôi hướng đến những sản phẩm bạn có thể
+        mặc đi làm, đi gặp bạn bè hay đi công tác mà không cần suy nghĩ nhiều.
+      </p>
+      <p>
+        Đây không phải là thời trang xa xỉ hay thời trang trình diễn. Đây là quần áo
+        thực dụng, chỉn chu, phù hợp với nhịp sống bận rộn của người đi làm nhưng vẫn
+        quan tâm đến tác động của những gì mình mua.
+      </p>
+    </section>
+
+    <section class="intro-section">
+      <h2>Triết lý thiết kế</h2>
+      <p>
+        Chúng tôi thiết kế theo hướng <strong>capsule wardrobe</strong> (tủ đồ tối giản):
+        một số lượng món đồ vừa đủ, được tính toán để dễ dàng phối lẫn với nhau thay vì
+        mỗi món chỉ mặc được với một bộ trang phục cố định. Màu sắc, form dáng và chất
+        liệu được lựa chọn để một chiếc áo có thể đi cùng nhiều chiếc quần, và ngược lại.
+      </p>
+      <p>
+        Mục tiêu ưu tiên là <strong>dùng được lâu dài</strong>, thay vì khuyến khích mua
+        nhiều rồi bỏ. Một sản phẩm tốt, được chăm sóc đúng cách, nên đồng hành với bạn
+        qua nhiều mùa chứ không phải một vài lần mặc.
+      </p>
+      <PlaceholderArt
+        seed="gioi-thieu-brand"
+        caption="Ametia Green"
+        expectedFile="gioi-thieu-brand.jpg"
+        aspect="wide"
+      />
+    </section>
+
+    <section class="intro-section">
+      <h2>Cam kết minh bạch</h2>
+      <p>
+        Chúng tôi cam kết <strong>minh bạch</strong> về nguồn gốc nguyên liệu và quy trình
+        làm ra sản phẩm, kể cả những phần chưa hoàn thiện. Với mỗi sản phẩm, chúng tôi
+        công khai chất liệu, hành trình sản xuất và cách chăm sóc để giúp bạn hiểu rõ
+        hơn thứ mình đang mặc.
+      </p>
+      <p>
+        Trong bản dựng này, một số thông tin về nguồn gốc nguyên liệu, số liệu vận hành
+        và tiến độ dự án vẫn đang ở dạng minh họa. Những phần đó luôn được gắn nhãn
+        <span class="mock-label">Thông tin mô phỏng</span> để bạn dễ dàng phân biệt với
+        dữ liệu thật.
+      </p>
+    </section>
+
+    <section class="intro-disclosure">
+      <p>
+        <em>
+          Đây là bản dựng thử nghiệm (prototype) trình bày ý tưởng sản phẩm và mô hình
+          vận hành, một số dữ liệu là minh họa.
+        </em>
+      </p>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .intro-page {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    padding-block: var(--space-6) var(--space-8);
+  }
+
+  .intro-page__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .intro-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .intro-section :global(figure) {
+    margin-top: var(--space-2);
+  }
+
+  .intro-disclosure {
+    border: 1px solid var(--color-sage);
+    border-radius: var(--radius-card);
+    background: var(--color-cream-card);
+    padding: var(--space-5);
+  }
+
+  .intro-disclosure p {
+    margin: 0;
+    max-width: none;
+  }
+
+  @media (min-width: 600px) {
+    .intro-page {
+      padding-block: var(--space-8);
+    }
+  }
+</style>

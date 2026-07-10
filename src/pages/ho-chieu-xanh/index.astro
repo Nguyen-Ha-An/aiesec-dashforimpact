@@ -1,0 +1,195 @@
+---
+import Layout from '../../components/Layout.astro';
+import PassportTierCard from '../../components/PassportTierCard.astro';
+import MissionBadge from '../../components/MissionBadge.astro';
+import PlaceholderArt from '../../components/PlaceholderArt.astro';
+
+const profile = {
+  name: 'Lê Thị Minh Anh',
+  joined: 'Tham gia từ tháng 03/2025',
+  totalMissions: 12,
+};
+
+const missionsToNextTier = 6;
+const missionsGoal = 10;
+const progressPercent = Math.round((missionsToNextTier / missionsGoal) * 100);
+
+const missions = [
+  { label: 'Chăm sóc sản phẩm định kỳ theo hướng dẫn', done: true },
+  { label: 'Chăm sóc: đọc kỹ nhãn giặt là trước khi dùng', done: false },
+  { label: 'Tìm hiểu về hành trình vật liệu của một sản phẩm', done: true },
+  { label: 'Tìm hiểu về hoạt động của Quỹ Green Loop', done: false },
+  { label: 'Sửa chữa một sản phẩm tại buổi workshop', done: true },
+  { label: 'Sửa chữa nhỏ tại nhà theo video hướng dẫn', done: false },
+  { label: 'Thu hồi sản phẩm cũ để tái sử dụng vật liệu', done: true },
+  { label: 'Tham gia cộng đồng tại một sự kiện offline', done: true },
+  { label: 'Tham gia cộng đồng chia sẻ trải nghiệm trên nhóm', done: false },
+];
+---
+<Layout title="Hộ chiếu xanh" description="Hồ sơ mô phỏng hộ chiếu xanh của thành viên Ametia Green, theo dõi hành trình chăm sóc, sửa chữa và thu hồi sản phẩm.">
+  <div class="container passport-page">
+    <header class="passport-page__intro">
+      <h1>Hộ chiếu xanh</h1>
+      <p>
+        Hộ chiếu xanh ghi lại hành trình đồng hành cùng Ametia Green: từ việc chăm sóc, sửa chữa
+        cho tới thu hồi sản phẩm và tham gia cộng đồng. Mỗi nhiệm vụ hoàn thành đưa thành viên
+        tiến gần hơn tới cấp độ tiếp theo.
+      </p>
+    </header>
+
+    <section class="profile-card card">
+      <div class="profile-card__avatar">
+        <PlaceholderArt seed={profile.name} caption={`Ảnh đại diện của ${profile.name}`} expectedFile="avatar-thanh-vien.jpg" aspect="square" />
+      </div>
+      <div class="profile-card__info">
+        <h2 class="profile-card__name">{profile.name}</h2>
+        <p class="profile-card__meta">{profile.joined} - đã hoàn thành {profile.totalMissions} nhiệm vụ</p>
+        <p class="profile-disclosure">
+          Đây là <strong>hồ sơ mô phỏng</strong> để minh họa trải nghiệm, không có tài khoản hoặc dữ liệu thật.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="tier-heading">
+      <h2 id="tier-heading">Cấp độ của bạn</h2>
+      <div class="tier-grid">
+        <PassportTierCard
+          tier="Cây Trưởng Thành"
+          active
+          description="Đã hoàn thành nhiều nhiệm vụ chăm sóc, sửa chữa và thu hồi sản phẩm. Đang trên đường tới Cây Cổ Thụ."
+          missions={['Chăm sóc sản phẩm định kỳ', 'Sửa chữa tại workshop', 'Thu hồi 1 sản phẩm cũ']}
+        />
+        <PassportTierCard
+          tier="Mầm Non"
+          active={false}
+          description="Cấp độ khởi đầu dành cho thành viên mới, đã hoàn thành xong."
+        />
+        <PassportTierCard
+          tier="Cây Cổ Thụ"
+          active={false}
+          description="Cấp độ cao nhất, dành cho thành viên gắn bó lâu dài với hành trình tuần hoàn."
+        />
+      </div>
+    </section>
+
+    <section aria-labelledby="progress-heading" class="progress-section">
+      <h2 id="progress-heading">Tiến trình lên hạng</h2>
+      <div class="progress-track" role="img" aria-label={`Đã hoàn thành ${missionsToNextTier} trên ${missionsGoal} nhiệm vụ tới Cây Cổ Thụ`}>
+        <div class="progress-track__fill" style={`width: ${progressPercent}%;`}></div>
+      </div>
+      <p class="progress-label">{missionsToNextTier}/{missionsGoal} nhiệm vụ tới Cây Cổ Thụ</p>
+    </section>
+
+    <section aria-labelledby="missions-heading">
+      <h2 id="missions-heading">Nhiệm vụ theo 5 nhóm hành động</h2>
+      <p>
+        Mỗi nhóm hành động đại diện cho một cách đóng góp vào vòng tuần hoàn của sản phẩm.
+        <span class="mock-label">Danh sách mô phỏng</span>
+      </p>
+      <div class="mission-grid">
+        {missions.map((m) => <MissionBadge label={m.label} done={m.done} />)}
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .passport-page {
+    display: grid;
+    gap: var(--space-7);
+    margin-block: var(--space-6) var(--space-8);
+  }
+
+  .passport-page__intro p {
+    color: var(--color-charcoal-soft);
+  }
+
+  .profile-card {
+    display: grid;
+    gap: var(--space-5);
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .profile-card__avatar {
+    max-width: 160px;
+  }
+
+  .profile-card__name {
+    margin-bottom: var(--space-1);
+  }
+
+  .profile-card__meta {
+    margin: 0 0 var(--space-4);
+    color: var(--color-charcoal-soft);
+    font-size: 0.9rem;
+  }
+
+  .profile-disclosure {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .tier-grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr;
+  }
+
+  .progress-section {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .progress-track {
+    height: 14px;
+    border-radius: var(--radius-pill);
+    background: var(--color-cream-card);
+    border: 1px solid var(--color-sage);
+    overflow: hidden;
+  }
+
+  .progress-track__fill {
+    height: 100%;
+    background: var(--color-moss);
+    border-radius: var(--radius-pill);
+  }
+
+  .progress-label {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--color-charcoal-soft);
+  }
+
+  .mission-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 600px) {
+    .profile-card {
+      grid-template-columns: 160px 1fr;
+    }
+
+    .tier-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mission-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .tier-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .mission-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>
