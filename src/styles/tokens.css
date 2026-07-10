@@ -24,6 +24,12 @@
   --space-6: 32px;
   --space-7: 48px;
   --space-8: 64px;
+
+  /* Fixed (non-swapping) tokens for the footer band, which stays dark in both themes */
+  --color-footer-bg: #23221D;
+  --color-footer-text: #F4F0E6;
+  --color-footer-text-muted: rgba(244, 240, 230, 0.62);
+  --color-footer-accent: #B7C9A0;
 }
 
 @media (prefers-color-scheme: dark) {

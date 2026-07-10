@@ -1,0 +1,123 @@
+---
+import { Icon } from 'astro-icon/components';
+import { withBase } from '../lib/base';
+
+const navItems = [
+  { label: 'Giới thiệu', href: withBase('gioi-thieu/') },
+  { label: 'Hệ sinh thái', href: withBase('he-sinh-thai/') },
+  { label: 'Sự kiện', href: withBase('su-kien/') },
+  { label: 'Hộ chiếu xanh', href: withBase('ho-chieu-xanh/') },
+  { label: 'Green Loop Fund', href: withBase('green-loop-fund/') },
+];
+---
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__logo" href={withBase('/')}>
+      <Icon name="ph:leaf" size={22} />
+      <span>Ametia Green</span>
+    </a>
+
+    <button
+      class="site-header__toggle"
+      id="nav-toggle"
+      aria-expanded="false"
+      aria-controls="site-nav"
+    >
+      <Icon name="ph:list" size={24} />
+      <span class="visually-hidden">Mở menu</span>
+    </button>
+
+    <nav class="site-nav" id="site-nav">
+      <ul>
+        {navItems.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--color-cream);
+    border-bottom: 1px solid var(--color-sage);
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .site-header__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-charcoal);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .site-header__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: var(--color-charcoal);
+    cursor: pointer;
+    padding: var(--space-2);
+  }
+  .site-nav {
+    display: none;
+  }
+  .site-nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    margin: 0;
+    padding: 0;
+  }
+  .site-nav a {
+    color: var(--color-charcoal);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  .site-nav a:hover { color: var(--color-moss); }
+
+  .site-nav.is-open {
+    display: block;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--color-cream);
+    border-bottom: 1px solid var(--color-sage);
+    padding: var(--space-4);
+  }
+  .site-nav.is-open ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 900px) {
+    .site-header__toggle { display: none; }
+    .site-nav { display: block; }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const nav = document.getElementById('site-nav');
+  toggle?.addEventListener('click', () => {
+    const isOpen = nav?.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+  });
+</script>
