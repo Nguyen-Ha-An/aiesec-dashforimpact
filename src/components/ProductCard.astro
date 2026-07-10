@@ -1,0 +1,52 @@
+---
+import type { Product } from '../data/products';
+import { withBase } from '../lib/base';
+import PlaceholderArt from './PlaceholderArt.astro';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const priceLabel = `${product.priceVnd.toLocaleString('vi-VN')} VNĐ`;
+const href = withBase(`san-pham/${product.slug}/`);
+---
+<a class="product-card" href={href}>
+  <PlaceholderArt
+    seed={product.slug}
+    caption={product.name}
+    expectedFile={`${product.slug}.jpg`}
+    aspect="portrait"
+  />
+  <div class="product-card__body">
+    <h3 class="product-card__name">{product.name}</h3>
+    <p class="product-card__price">{priceLabel}</p>
+  </div>
+</a>
+
+<style>
+  .product-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: var(--radius-card);
+    transition: transform 0.15s ease;
+  }
+  .product-card:hover { transform: translateY(-2px); }
+  .product-card__body {
+    padding-top: var(--space-3);
+  }
+  .product-card__name {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 4px;
+    color: var(--color-charcoal);
+  }
+  .product-card__price {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--color-moss);
+    margin: 0;
+  }
+</style>

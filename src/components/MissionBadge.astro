@@ -1,0 +1,35 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  label: string;
+  done?: boolean;
+}
+
+const { label, done = false } = Astro.props;
+---
+<div class={`mission-badge ${done ? 'mission-badge--done' : 'mission-badge--pending'}`}>
+  <Icon name={done ? 'ph:check-circle-fill' : 'ph:circle-dashed'} size={20} />
+  <span>{label}</span>
+</div>
+
+<style>
+  .mission-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-pill);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  .mission-badge--done {
+    background: var(--color-sage);
+    color: var(--color-charcoal);
+  }
+  .mission-badge--pending {
+    background: transparent;
+    color: var(--color-charcoal-soft);
+    border: 1px solid var(--color-sage);
+  }
+</style>

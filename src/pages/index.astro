@@ -1,9 +1,26 @@
 ---
 import Layout from '../components/Layout.astro';
-import PlaceholderArt from '../components/PlaceholderArt.astro';
+import ProductCard from '../components/ProductCard.astro';
+import ProductTimeline from '../components/ProductTimeline.astro';
+import EventCard from '../components/EventCard.astro';
+import PassportTierCard from '../components/PassportTierCard.astro';
+import FundProjectProgress from '../components/FundProjectProgress.astro';
+import MissionBadge from '../components/MissionBadge.astro';
+import QrSimulator from '../components/QrSimulator.astro';
+import { products } from '../data/products';
+import { events } from '../data/events';
+import { fundData } from '../data/fund';
 ---
 <Layout title="Trang chủ" description="Ametia Green - thời trang ứng dụng có trách nhiệm.">
-  <div class="container" style="max-width: 320px; margin-block: 2rem;">
-    <PlaceholderArt seed="ao-thun-form-rong" caption="Áo thun form rộng" expectedFile="ao-thun-form-rong.jpg" aspect="portrait" />
+  <div class="container" style="display: grid; gap: 2rem; margin-block: 2rem;">
+    <ProductCard product={products[0]} />
+    <ProductTimeline steps={products[0].timeline} />
+    <EventCard event={events[0]} />
+    <EventCard event={events[2]} />
+    <PassportTierCard tier="Cây Trưởng Thành" active description="Đã hoàn thành một số nhiệm vụ chăm sóc và sửa chữa." missions={['Tham gia 1 workshop', 'Thu hồi 1 sản phẩm cũ']} />
+    <FundProjectProgress project={fundData.projects[0]} />
+    <MissionBadge label="Chăm sóc" done />
+    <MissionBadge label="Sửa chữa" />
+    <QrSimulator url="https://nguyen-ha-an.github.io/aiesec-dashforimpact/san-pham/tui-tote/" label="Túi tote" />
   </div>
 </Layout>

@@ -1,0 +1,74 @@
+---
+import { Icon } from 'astro-icon/components';
+
+type TierName = 'Mầm Non' | 'Cây Trưởng Thành' | 'Cây Cổ Thụ';
+
+interface Props {
+  tier: TierName;
+  active?: boolean;
+  description: string;
+  missions?: string[];
+}
+
+const { tier, active = false, description, missions = [] } = Astro.props;
+
+const tierIcons: Record<TierName, string> = {
+  'Mầm Non': 'ph:seedling',
+  'Cây Trưởng Thành': 'ph:plant',
+  'Cây Cổ Thụ': 'ph:tree',
+};
+---
+<div class={`tier-card ${active ? 'tier-card--active' : 'tier-card--inactive'}`}>
+  <div class="tier-card__icon">
+    <Icon name={tierIcons[tier]} size={28} />
+  </div>
+  <h3 class="tier-card__name">{tier}</h3>
+  <p class="tier-card__description">{description}</p>
+  {missions.length > 0 && (
+    <ul class="tier-card__missions">
+      {missions.map((m) => <li>{m}</li>)}
+    </ul>
+  )}
+  {active && <span class="mock-label tier-card__badge">Cấp độ hiện tại</span>}
+</div>
+
+<style>
+  .tier-card {
+    background: var(--color-cream-card);
+    border-radius: var(--radius-card);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    border: 2px solid transparent;
+  }
+  .tier-card--active {
+    border-color: var(--color-moss);
+  }
+  .tier-card--inactive {
+    opacity: 0.6;
+  }
+  .tier-card__icon {
+    color: var(--color-moss);
+  }
+  .tier-card__name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  .tier-card__description {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-charcoal-soft);
+  }
+  .tier-card__missions {
+    margin: var(--space-2) 0 0;
+    padding-left: 1.1rem;
+    font-size: 0.85rem;
+  }
+  .tier-card__missions li { margin-bottom: 4px; }
+  .tier-card__badge {
+    align-self: flex-start;
+    margin-top: var(--space-2);
+  }
+</style>

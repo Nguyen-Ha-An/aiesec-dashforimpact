@@ -1,0 +1,63 @@
+---
+import type { FundProject } from '../data/fund';
+
+interface Props {
+  project: FundProject;
+}
+
+const { project } = Astro.props;
+const percent = Math.min(100, Math.round((project.raisedVnd / project.goalVnd) * 100));
+const raisedLabel = `${project.raisedVnd.toLocaleString('vi-VN')} VNĐ`;
+const goalLabel = `${project.goalVnd.toLocaleString('vi-VN')} VNĐ`;
+---
+<div class="fund-project">
+  <h3 class="fund-project__name">{project.name}</h3>
+  <p class="fund-project__description">{project.description}</p>
+  <div class="fund-project__numbers">
+    <span class="fund-project__raised">{raisedLabel}</span>
+    <span class="fund-project__goal">/ {goalLabel} ({percent}%)</span>
+  </div>
+  <div class="fund-project__track" role="img" aria-label={`Đã đạt ${percent}% mục tiêu`}>
+    <div class="fund-project__fill" style={`width: ${percent}%;`}></div>
+  </div>
+</div>
+
+<style>
+  .fund-project {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .fund-project__name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+  .fund-project__description {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-charcoal-soft);
+  }
+  .fund-project__numbers {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+  .fund-project__raised {
+    color: var(--color-moss);
+    font-weight: 600;
+  }
+  .fund-project__goal {
+    color: var(--color-charcoal-soft);
+  }
+  .fund-project__track {
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background: rgba(183, 201, 160, 0.35);
+    overflow: hidden;
+  }
+  .fund-project__fill {
+    height: 100%;
+    background: var(--color-moss);
+    border-radius: var(--radius-pill);
+  }
+</style>

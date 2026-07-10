@@ -1,0 +1,98 @@
+---
+import type { AmetiaEvent } from '../data/events';
+import PlaceholderArt from './PlaceholderArt.astro';
+
+interface Props {
+  event: AmetiaEvent;
+}
+
+const { event } = Astro.props;
+
+const statusLabels: Record<AmetiaEvent['status'], string> = {
+  'sap-dien-ra': 'Sắp diễn ra',
+  'dang-mo-dang-ky': 'Đang mở đăng ký',
+  'da-ket-thuc': 'Đã kết thúc',
+};
+
+const [year, month, day] = event.date.split('-');
+const dateLabel = `${day}/${month}/${year}`;
+const isOpen = event.status === 'dang-mo-dang-ky';
+---
+<article class="event-card">
+  <PlaceholderArt
+    seed={event.slug}
+    caption={event.name}
+    expectedFile={`${event.imageSlug}.jpg`}
+    aspect="wide"
+  />
+  <div class="event-card__body">
+    <span class={`event-card__status event-card__status--${event.status}`}>{statusLabels[event.status]}</span>
+    <h3 class="event-card__name">{event.name}</h3>
+    <p class="event-card__meta">{dateLabel} · {event.location}</p>
+    <p class="event-card__description">{event.description}</p>
+    {isOpen ? (
+      <button
+        type="button"
+        class="btn btn-primary rsvp-open"
+        data-event-slug={event.slug}
+        data-event-name={event.name}
+      >
+        Đăng ký
+      </button>
+    ) : (
+      <p class="event-card__closed-note">
+        {event.status === 'sap-dien-ra' ? 'Đăng ký sẽ mở gần ngày diễn ra' : 'Sự kiện đã kết thúc'}
+      </p>
+    )}
+  </div>
+</article>
+
+<style>
+  .event-card {
+    background: var(--color-cream-card);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .event-card__body {
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .event-card__status {
+    align-self: flex-start;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: var(--radius-pill);
+  }
+  .event-card__status--dang-mo-dang-ky { background: var(--color-sage); color: var(--color-charcoal); }
+  .event-card__status--sap-dien-ra { background: var(--color-cream); color: var(--color-coffee); border: 1px solid var(--color-coffee); }
+  .event-card__status--da-ket-thuc { background: transparent; color: var(--color-charcoal-soft); border: 1px solid var(--color-charcoal-soft); }
+  .event-card__name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  .event-card__meta {
+    font-size: 0.85rem;
+    color: var(--color-charcoal-soft);
+    margin: 0;
+  }
+  .event-card__description {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+  .event-card__closed-note {
+    margin: var(--space-2) 0 0;
+    font-size: 0.85rem;
+    color: var(--color-charcoal-soft);
+    font-style: italic;
+  }
+  .event-card .btn {
+    margin-top: var(--space-2);
+    align-self: flex-start;
+  }
+</style>

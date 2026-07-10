@@ -1,0 +1,69 @@
+---
+import type { ProductTimelineStep } from '../data/products';
+
+interface Props {
+  steps: ProductTimelineStep[];
+}
+
+const { steps } = Astro.props;
+---
+<ol class="timeline">
+  {steps.map((step, index) => (
+    <li class="timeline__item">
+      <div class="timeline__marker" aria-hidden="true">
+        <span class="timeline__dot"></span>
+        {index < steps.length - 1 && <span class="timeline__line"></span>}
+      </div>
+      <div class="timeline__content">
+        <h4 class="timeline__stage">{step.stage}</h4>
+        <p class="timeline__description">{step.description}</p>
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .timeline__item {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: var(--space-4);
+  }
+  .timeline__marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .timeline__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-moss);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .timeline__line {
+    flex: 1;
+    width: 2px;
+    background: var(--color-sage);
+    margin-top: 4px;
+  }
+  .timeline__content {
+    padding-bottom: var(--space-5);
+  }
+  .timeline__stage {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .timeline__description {
+    margin: 0;
+    color: var(--color-charcoal-soft);
+    font-size: 0.95rem;
+  }
+</style>
