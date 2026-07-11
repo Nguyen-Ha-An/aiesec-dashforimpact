@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import { withBase } from '../lib/base';
+import { products } from '../data/products';
 
 const navItems = [
   { label: 'Giới thiệu', href: withBase('gioi-thieu/') },
@@ -9,12 +10,19 @@ const navItems = [
   { label: 'Hộ chiếu xanh', href: withBase('ho-chieu-xanh/') },
   { label: 'Green Loop Fund', href: withBase('green-loop-fund/') },
 ];
+
+const logoMark = withBase('images/brand/ametia-green-mark.png');
 ---
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="site-header__logo" href={withBase('/')}>
-      <Icon name="ph:leaf" size={22} />
-      <span>Ametia Green</span>
+    <a class="site-header__logo" href={withBase('/')} aria-label="Ametia Green - Trang chủ">
+      <span class="site-header__badge">
+        <img src={logoMark} alt="" width="40" height="40" />
+      </span>
+      <span class="site-header__wordmark">
+        <span class="site-header__name">Ametia Green</span>
+        <span class="site-header__tag">Green Capsule</span>
+      </span>
     </a>
 
     <button
@@ -29,6 +37,19 @@ const navItems = [
 
     <nav class="site-nav" id="site-nav">
       <ul>
+        <li class="site-nav__group" id="products-group">
+          <button class="site-nav__trigger" id="products-trigger" aria-expanded="false" aria-controls="products-menu">
+            Sản phẩm
+            <Icon name="ph:caret-down" size={14} />
+          </button>
+          <ul class="site-nav__menu" id="products-menu">
+            {products.map((product) => (
+              <li>
+                <a href={withBase(`san-pham/${product.slug}/`)}>{product.name}</a>
+              </li>
+            ))}
+          </ul>
+        </li>
         {navItems.map((item) => (
           <li><a href={item.href}>{item.label}</a></li>
         ))}
@@ -42,25 +63,53 @@ const navItems = [
     position: sticky;
     top: 0;
     z-index: 20;
-    background: var(--color-cream);
-    border-bottom: 1px solid var(--color-sage);
+    background: color-mix(in srgb, var(--color-cream) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid var(--color-line);
   }
   .site-header__inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 64px;
+    height: 68px;
   }
   .site-header__logo {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--color-charcoal);
+    flex-shrink: 0;
+  }
+  .site-header__badge {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    overflow: hidden;
+    background: #0d0f0c;
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+  }
+  .site-header__badge img { width: 100%; height: 100%; object-fit: cover; }
+  .site-header__wordmark {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+  .site-header__name {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--color-charcoal);
-    text-decoration: none;
-    flex-shrink: 0;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+  }
+  .site-header__tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-moss);
   }
   .site-header__toggle {
     display: inline-flex;
@@ -72,9 +121,7 @@ const navItems = [
     cursor: pointer;
     padding: var(--space-2);
   }
-  .site-nav {
-    display: none;
-  }
+  .site-nav { display: none; }
   .site-nav ul {
     list-style: none;
     display: flex;
@@ -83,22 +130,52 @@ const navItems = [
     margin: 0;
     padding: 0;
   }
-  .site-nav a {
+  .site-nav a,
+  .site-nav__trigger {
     color: var(--color-charcoal);
     text-decoration: none;
     font-weight: 500;
     font-size: 0.95rem;
+    font-family: var(--font-body);
   }
-  .site-nav a:hover { color: var(--color-moss); }
+  .site-nav a:hover,
+  .site-nav__trigger:hover { color: var(--color-moss); }
+
+  .site-nav__group { position: relative; }
+  .site-nav__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .site-nav__trigger :global(svg) { transition: transform 0.15s ease; }
+  .site-nav__menu {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+  .site-nav__menu a {
+    display: block;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-input);
+    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+  .site-nav__menu a:hover { background: var(--color-sage-soft); }
 
   .site-nav.is-open {
     display: block;
     position: absolute;
-    top: 64px;
+    top: 68px;
     left: 0;
     right: 0;
-    background: var(--color-cream);
-    border-bottom: 1px solid var(--color-sage);
+    background: var(--color-cream-card);
+    border-bottom: 1px solid var(--color-line);
+    box-shadow: var(--shadow-card);
     padding: var(--space-4);
   }
   .site-nav.is-open ul {
@@ -106,10 +183,32 @@ const navItems = [
     align-items: flex-start;
     gap: var(--space-4);
   }
+  /* Mobile: products submenu expands inline when toggled open */
+  .site-nav.is-open .site-nav__menu { padding-left: var(--space-3); margin-top: var(--space-3); }
+  .site-nav.is-open .site-nav__group.is-open .site-nav__menu { display: flex; }
+  .site-nav.is-open .site-nav__group.is-open .site-nav__trigger :global(svg) { transform: rotate(180deg); }
 
   @media (min-width: 900px) {
     .site-header__toggle { display: none; }
     .site-nav { display: block; }
+
+    /* Desktop: products submenu drops down on hover / keyboard focus */
+    .site-nav__menu {
+      position: absolute;
+      top: calc(100% + 14px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px;
+      background: var(--color-cream-card);
+      border: 1px solid var(--color-line);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-lift);
+      padding: var(--space-2);
+    }
+    .site-nav__group:hover .site-nav__menu,
+    .site-nav__group:focus-within .site-nav__menu { display: flex; }
+    .site-nav__group:hover .site-nav__trigger :global(svg),
+    .site-nav__group:focus-within .site-nav__trigger :global(svg) { transform: rotate(180deg); }
   }
 </style>
 
@@ -119,5 +218,15 @@ const navItems = [
   toggle?.addEventListener('click', () => {
     const isOpen = nav?.classList.toggle('is-open');
     toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+  });
+
+  // Products submenu: click-to-expand on mobile (desktop uses CSS hover)
+  const group = document.getElementById('products-group');
+  const trigger = document.getElementById('products-trigger');
+  trigger?.addEventListener('click', (e) => {
+    if (window.matchMedia('(min-width: 900px)').matches) return;
+    e.preventDefault();
+    const open = group?.classList.toggle('is-open');
+    trigger.setAttribute('aria-expanded', String(Boolean(open)));
   });
 </script>
