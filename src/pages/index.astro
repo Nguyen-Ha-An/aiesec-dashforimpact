@@ -140,6 +140,36 @@ const productLifeCycle = [
     </div>
   </section>
 
+  <section class="packaging eyebrow-free-section container" id="bao-bi-xanh">
+    <div class="packaging__grid">
+      <div class="packaging__media">
+        <img src={withBase('images/lifestyle/bao-bi-xanh.jpg')} alt="Bao bì Ametia Green làm từ rong biển và bã cà phê: túi giấy, hộp, thẻ tag và giấy gói" loading="lazy" decoding="async" width="1100" height="1100" />
+      </div>
+      <div class="packaging__text">
+        <p class="packaging__eyebrow">Bao bì xanh</p>
+        <h2>Bao bì làm từ rong biển và bã cà phê</h2>
+        <p>
+          Đội ngũ vật liệu của Ametia Green đang thử nghiệm một mẫu bao bì kết hợp chiết xuất
+          rong biển và bã cà phê thu gom từ các quán cà phê đối tác. Mục tiêu là tìm ra một lớp
+          bao bì mềm, có thể thay thế một phần bao bì gốc dầu mỏ đang dùng cho một số dòng sản phẩm.
+        </p>
+        <p>
+          Từ túi giấy, hộp đựng đến thẻ tag và lớp giấy gói, bộ bao bì được thiết kế đồng bộ theo
+          tinh thần tối giản, để hành trình một sản phẩm Ametia Green trở nên trọn vẹn ngay từ lớp
+          vỏ ngoài cùng.
+        </p>
+        <div class="packaging__callout">
+          <span class="mock-label">Ý tưởng vật liệu đang được thử nghiệm</span>
+          <p class="packaging__callout-text">
+            Đây mới là giai đoạn thử nghiệm. Khả năng phân hủy hoàn toàn và đặc tính không nhựa của
+            mẫu bao bì này chưa được đơn vị kiểm nghiệm độc lập xác nhận, thông tin chỉ mang tính mô
+            tả ý tưởng chứ chưa phải cam kết về sản phẩm đang bán.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="lifecycle eyebrow-free-section">
     <div class="container">
       <p class="lifecycle__eyebrow">Product Life Cycle</p>
@@ -285,6 +315,46 @@ const productLifeCycle = [
     gap: var(--space-5);
   }
 
+  /* Green packaging feature */
+  .packaging__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+    align-items: center;
+  }
+  .packaging__media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    background: var(--color-cream-2);
+  }
+  .packaging__media img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .packaging__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-moss);
+    margin: 0 0 var(--space-2);
+  }
+  .packaging__text p { color: var(--color-charcoal-soft); }
+  .packaging__callout {
+    background: var(--color-sage-soft);
+    border-left: 4px solid var(--color-moss);
+    border-radius: var(--radius-input);
+    padding: var(--space-4) var(--space-5);
+    margin-top: var(--space-4);
+  }
+  .packaging__callout-text {
+    margin: var(--space-2) 0 0;
+    font-size: 0.9rem;
+    max-width: none;
+  }
+
   /* Product Life Cycle */
   .lifecycle {
     background: var(--color-sage-soft);
@@ -404,6 +474,10 @@ const productLifeCycle = [
     }
     .intro__row--reverse .intro__media {
       order: 2;
+    }
+    .packaging__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-8);
     }
     .collection__grid {
       grid-template-columns: repeat(3, 1fr);
