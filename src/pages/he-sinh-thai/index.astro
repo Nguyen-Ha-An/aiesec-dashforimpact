@@ -1,6 +1,5 @@
 ---
 import Layout from '../../components/Layout.astro';
-import PlaceholderArt from '../../components/PlaceholderArt.astro';
 import PassportTierCard from '../../components/PassportTierCard.astro';
 import FundProjectProgress from '../../components/FundProjectProgress.astro';
 import { fundData } from '../../data/fund';
@@ -23,9 +22,9 @@ const journeySteps = [
       'Vải được cắt theo rập tối ưu nhằm giảm phần vải thừa, phần vụn còn lại được gom riêng cho các dự án tái chế của Green Loop Fund. Khâu hoàn thiện được kiểm tra chất lượng thủ công.',
   },
   {
-    stage: 'Đóng gói và vận chuyển',
+    stage: 'Phân phối và vận chuyển',
     description:
-      'Sản phẩm được đóng gói bằng vật liệu ưu tiên có thể tái sử dụng hoặc tái chế trong điều kiện thực tế hiện có. Đơn vị vận chuyển được lựa chọn dựa trên tuyến đường gần để giảm quãng đường di chuyển.',
+      'Mỗi sản phẩm được gắn mã QR truy xuất hành trình rồi vận chuyển đến cửa hàng hoặc trực tiếp tới khách hàng. Đơn vị vận chuyển được lựa chọn dựa trên tuyến đường gần để giảm quãng đường di chuyển.',
   },
 ];
 ---
@@ -33,42 +32,15 @@ const journeySteps = [
   title="Hệ sinh thái"
   description="Hành trình vật liệu, hộ chiếu xanh và Green Loop Fund của Ametia Green."
 >
-  <section id="mo-khoa" class="unlock">
-    <div class="container unlock__grid">
-      <div class="unlock__art">
-        <PlaceholderArt
-          seed="packaging-concept"
-          caption="Bao bì rong biển và bã cà phê"
-          expectedFile="packaging-concept.jpg"
-          aspect="square"
-        />
-      </div>
-      <div class="unlock__text">
-        <p class="mock-label">Đang mở khóa</p>
-        <h1>Bao bì làm từ rong biển và bã cà phê</h1>
-        <p>
-          Đội ngũ vật liệu của Ametia Green đang thử nghiệm một mẫu bao bì kết hợp
-          chiết xuất rong biển và bã cà phê thu gom từ các quán cà phê đối tác.
-          Mục tiêu là tìm ra một lớp bao bì mềm, có thể thay thế một phần bao bì
-          gốc dầu mỏ đang dùng cho một số dòng sản phẩm.
-        </p>
-        <p>
-          Đây mới là giai đoạn thử nghiệm trong phòng thí nghiệm, chưa áp dụng
-          đại trà cho toàn bộ sản phẩm. Chúng tôi sẽ cập nhật tiến độ khi có kết
-          quả kiểm nghiệm chính thức.
-        </p>
-        <div class="unlock__callout">
-          <p class="unlock__callout-title">
-            <span class="mock-label">Ý tưởng vật liệu đang được thử nghiệm</span>
-          </p>
-          <p class="unlock__callout-text">
-            Khả năng phân hủy hoàn toàn và đặc tính không nhựa của mẫu bao bì này
-            chưa được xác nhận bởi đơn vị kiểm nghiệm độc lập. Thông tin trên
-            trang này chỉ mang tính mô tả ý tưởng, không phải cam kết về sản phẩm
-            đang bán.
-          </p>
-        </div>
-      </div>
+  <section class="eco-intro">
+    <div class="container">
+      <p class="mock-label">Hệ sinh thái</p>
+      <h1>Một sản phẩm, một hành trình minh bạch</h1>
+      <p class="eco-intro__lead">
+        Ametia Green tập trung vào sự minh bạch xuyên suốt vòng đời sản phẩm: từ nguồn
+        nguyên liệu, quy trình sản xuất cho đến hành trình đến tay người mặc. Mỗi sản phẩm
+        đi kèm một mã QR để bạn tra cứu thông tin bất cứ lúc nào.
+      </p>
     </div>
   </section>
 
@@ -166,41 +138,19 @@ const journeySteps = [
 </Layout>
 
 <style>
-  /* Section 1: mo-khoa - asymmetric image + text */
-  .unlock {
-    padding-block: var(--space-8);
+  /* Section 1: intro */
+  .eco-intro {
+    padding-block: var(--space-8) var(--space-7);
   }
-  .unlock__grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
-    align-items: start;
+  .eco-intro h1 {
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    max-width: 18ch;
+    margin-top: var(--space-3);
   }
-  .unlock__text p:first-of-type {
-    margin-bottom: var(--space-3);
-  }
-  .unlock__callout {
-    background: var(--color-cream-card);
-    border-left: 4px solid var(--color-moss);
-    border-radius: var(--radius-card);
-    padding: var(--space-5);
-    margin-top: var(--space-4);
-  }
-  .unlock__callout-title {
-    margin: 0 0 var(--space-3);
-  }
-  .unlock__callout-text {
-    margin: 0;
+  .eco-intro__lead {
     color: var(--color-charcoal-soft);
-    font-size: 0.95rem;
-    max-width: none;
-  }
-
-  @media (min-width: 900px) {
-    .unlock__grid {
-      grid-template-columns: 5fr 7fr;
-      gap: var(--space-7);
-    }
+    max-width: 60ch;
+    font-size: 1.05rem;
   }
 
   /* Section 2: kham-pha - horizontal scroll-snap timeline */

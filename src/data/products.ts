@@ -49,7 +49,7 @@ export const products: Product[] = [
       { stage: 'Dệt & xử lý vải', description: 'Sợi bông và sợi bã cà phê được kéo cùng nhau theo tỷ lệ 60/40 rồi dệt thành tấm vải form rộng.' },
       { stage: 'Cắt may', description: 'Vải được cắt theo rập form rộng, đường may đơn giản, hạn chế chi tiết thừa để mặc được lâu dài.' },
       { stage: 'Hoàn thiện & kiểm tra', description: 'Từng áo được kiểm tra đường may, độ đều màu và độ co giãn trước khi đóng gói.' },
-      { stage: 'Đóng gói & vận chuyển', description: 'Áo được gấp gọn, đóng gói bằng vật liệu hạn chế nhựa dùng một lần rồi giao đến người mặc.' },
+      { stage: 'Đóng gói & vận chuyển', description: 'Áo được gấp gọn theo form chuẩn rồi giao đến người mặc, hạn chế nhăn trong quá trình vận chuyển.' },
     ],
     story: {
       title: 'Từ hạt cà phê buổi sáng đến chiếc áo bạn mặc cả tuần',
