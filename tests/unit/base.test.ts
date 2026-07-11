@@ -3,7 +3,7 @@ import { withBase } from '../../src/lib/base';
 
 describe('withBase', () => {
   it('prefixes a root-relative path with the configured base', () => {
-    expect(withBase('/gioi-thieu/')).toBe('/aiesec-dashforimpact/gioi-thieu/');
+    expect(withBase('/he-sinh-thai/')).toBe('/aiesec-dashforimpact/he-sinh-thai/');
   });
 
   it('collapses a double slash when path already starts with the base', () => {
