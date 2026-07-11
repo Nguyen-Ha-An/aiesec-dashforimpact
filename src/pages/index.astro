@@ -98,15 +98,27 @@ const journeySteps = [
     gap: var(--space-4);
   }
   .hero__content h1 {
-    font-size: clamp(2rem, 6vw, 3rem);
+    font-size: clamp(2.1rem, 6vw, 3.2rem);
     max-width: 14ch;
   }
   .hero__intro {
     color: var(--color-charcoal-soft);
     max-width: 50ch;
+    font-size: 1.05rem;
   }
   .hero__art {
-    max-width: 360px;
+    justify-self: center;
+    width: 100%;
+    max-width: 380px;
+    padding: var(--space-4);
+    background: linear-gradient(160deg, var(--color-sage-soft), var(--color-cream-card));
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+  .hero__art :global(.product-image),
+  .hero__art :global(.placeholder-art) {
+    box-shadow: var(--shadow-lift);
   }
 
   .about h2,

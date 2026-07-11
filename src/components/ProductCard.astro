@@ -12,36 +12,65 @@ const priceLabel = `${product.priceVnd.toLocaleString('vi-VN')} VNĐ`;
 const href = withBase(`san-pham/${product.slug}/`);
 ---
 <a class="product-card" href={href}>
-  <ProductImage
-    name={product.slug}
-    seed={product.slug}
-    caption={product.name}
-    expectedFile={`${product.slug}.jpg`}
-    aspect="portrait"
-  />
+  <div class="product-card__media">
+    <ProductImage
+      name={product.slug}
+      seed={product.slug}
+      caption={product.name}
+      expectedFile={`${product.slug}.jpg`}
+      aspect="portrait"
+    />
+  </div>
   <div class="product-card__body">
     <h3 class="product-card__name">{product.name}</h3>
     <p class="product-card__price">{priceLabel}</p>
+    <span class="product-card__cta">Xem chi tiết<span aria-hidden="true"> →</span></span>
   </div>
 </a>
 
 <style>
   .product-card {
-    display: block;
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
     color: inherit;
-    border-radius: var(--radius-card);
-    transition: transform 0.15s ease;
+    background: var(--color-cream-card);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
   }
-  .product-card:hover { transform: translateY(-2px); }
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lift);
+  }
+  .product-card__media {
+    overflow: hidden;
+    background: var(--color-cream-2);
+  }
+  .product-card__media :global(.product-image),
+  .product-card__media :global(.placeholder-art) {
+    border-radius: 0;
+  }
+  .product-card__media :global(img),
+  .product-card__media :global(svg) {
+    transition: transform 0.4s ease;
+  }
+  .product-card:hover .product-card__media :global(img) {
+    transform: scale(1.04);
+  }
   .product-card__body {
-    padding-top: var(--space-3);
+    padding: var(--space-4) var(--space-5) var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
   .product-card__name {
     font-family: var(--font-display);
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    margin: 0 0 4px;
+    margin: 0;
     color: var(--color-charcoal);
   }
   .product-card__price {
@@ -49,5 +78,19 @@ const href = withBase(`san-pham/${product.slug}/`);
     font-size: 0.9rem;
     color: var(--color-moss);
     margin: 0;
+  }
+  .product-card__cta {
+    margin-top: var(--space-2);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-moss);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+  .product-card:hover .product-card__cta,
+  .product-card:focus-visible .product-card__cta {
+    opacity: 1;
+    transform: translateX(0);
   }
 </style>

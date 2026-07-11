@@ -1,20 +1,25 @@
 :root {
-  --color-cream: #F4F0E6;
-  --color-cream-card: #FAF8F2;
-  --color-moss: #445939;
-  --color-moss-dark: #34432C;
+  /* Lighter, airier warm-neutral base for a fresh, premium feel */
+  --color-cream: #FBFAF5;
+  --color-cream-card: #FFFFFF;
+  --color-cream-2: #F2EEE3;
+  --color-sage-soft: #E9F0DF;
+  --color-moss: #4A6140;
+  --color-moss-dark: #384B30;
   --color-sage: #B7C9A0;
   --color-coffee: #5B4632;
   --color-charcoal: #23221D;
-  --color-charcoal-soft: #55534A;
+  --color-charcoal-soft: #5C5A50;
+  --color-line: #EBE6D9;
 
   --font-display: 'Be Vietnam Pro', system-ui, sans-serif;
   --font-body: 'Be Vietnam Pro', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  --radius-card: 12px;
+  --radius-card: 16px;
+  --radius-lg: 24px;
   --radius-pill: 999px;
-  --radius-input: 8px;
+  --radius-input: 10px;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -24,6 +29,11 @@
   --space-6: 32px;
   --space-7: 48px;
   --space-8: 64px;
+
+  /* Soft, layered shadows for gentle depth on a light canvas */
+  --shadow-sm: 0 1px 2px rgba(35, 34, 29, 0.05);
+  --shadow-card: 0 2px 10px -2px rgba(35, 34, 29, 0.06), 0 1px 3px rgba(35, 34, 29, 0.04);
+  --shadow-lift: 0 16px 34px -12px rgba(35, 34, 29, 0.18);
 
   /* Fixed (non-swapping) tokens for the footer band, which stays dark in both themes */
   --color-footer-bg: #23221D;
@@ -36,15 +46,21 @@
      in dark mode, so it must never be used as text color against a fixed --color-moss
      background - use these instead. */
   --color-on-moss: #FAF8F2;
-  --color-on-moss-muted: #B7C9A0;
+  --color-on-moss-muted: #C7D4B6;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-cream: #23221D;
-    --color-cream-card: #2B2A24;
+    --color-cream: #1E1D19;
+    --color-cream-card: #26251F;
+    --color-cream-2: #23221D;
+    --color-sage-soft: #2C3327;
     --color-charcoal: #F4F0E6;
-    --color-charcoal-soft: #C9C6BA;
+    --color-charcoal-soft: #C4C1B5;
     --color-sage: #8FA377;
+    --color-line: rgba(244, 240, 230, 0.12);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.32);
+    --shadow-lift: 0 16px 34px -12px rgba(0, 0, 0, 0.55);
   }
 }
