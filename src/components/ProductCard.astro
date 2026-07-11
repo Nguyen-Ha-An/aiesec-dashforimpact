@@ -1,7 +1,7 @@
 ---
 import type { Product } from '../data/products';
 import { withBase } from '../lib/base';
-import PlaceholderArt from './PlaceholderArt.astro';
+import ProductImage from './ProductImage.astro';
 
 interface Props {
   product: Product;
@@ -12,7 +12,8 @@ const priceLabel = `${product.priceVnd.toLocaleString('vi-VN')} VNĐ`;
 const href = withBase(`san-pham/${product.slug}/`);
 ---
 <a class="product-card" href={href}>
-  <PlaceholderArt
+  <ProductImage
+    name={product.slug}
     seed={product.slug}
     caption={product.name}
     expectedFile={`${product.slug}.jpg`}
