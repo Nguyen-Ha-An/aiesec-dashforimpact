@@ -1,0 +1,37 @@
+---
+import PlaceholderArt from './PlaceholderArt.astro';
+import { resolveProductImage } from '../lib/images';
+
+interface Props {
+  /** Tên file cơ sở (không kèm đuôi), ví dụ slug sản phẩm hoặc "hero-collection". */
+  name: string;
+  seed: string;
+  caption: string;
+  expectedFile: string;
+  aspect?: 'square' | 'portrait' | 'wide';
+}
+
+const { name, seed, caption, expectedFile, aspect = 'square' } = Astro.props;
+const src = resolveProductImage(name);
+---
+{src ? (
+  <figure class="product-image" data-aspect={aspect}>
+    <img src={src} alt={caption} loading="lazy" decoding="async" />
+  </figure>
+) : (
+  <PlaceholderArt seed={seed} caption={caption} expectedFile={expectedFile} aspect={aspect} />
+)}
+
+<style>
+  .product-image {
+    margin: 0;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    background: var(--color-cream-card);
+  }
+  .product-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>

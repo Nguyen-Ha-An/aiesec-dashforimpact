@@ -1,7 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import Layout from '../../components/Layout.astro';
-import PlaceholderArt from '../../components/PlaceholderArt.astro';
+import ProductImage from '../../components/ProductImage.astro';
 import ProductTimeline from '../../components/ProductTimeline.astro';
 import QrSimulator from '../../components/QrSimulator.astro';
 import { products, type Product } from '../../data/products';
@@ -25,7 +25,8 @@ const productUrl = withBase(`san-pham/${product.slug}/`);
 <Layout title={product.name} description={`${product.name} - ${product.materials}`}>
   <article class="container product-page">
     <div class="product-page__hero">
-      <PlaceholderArt
+      <ProductImage
+        name={product.slug}
         seed={product.slug}
         caption={product.name}
         expectedFile={`${product.slug}.jpg`}

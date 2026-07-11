@@ -1,7 +1,7 @@
 ---
 import Layout from '../components/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
-import PlaceholderArt from '../components/PlaceholderArt.astro';
+import ProductImage from '../components/ProductImage.astro';
 import { withBase } from '../lib/base';
 import { products } from '../data/products';
 
@@ -39,7 +39,8 @@ const journeySteps = [
       <a class="btn btn-primary" href={withBase('he-sinh-thai/')}>Khám phá hành trình sản phẩm</a>
     </div>
     <div class="hero__art">
-      <PlaceholderArt
+      <ProductImage
+        name="hero-collection"
         seed="hero-collection"
         caption="Green Capsule Collection"
         expectedFile="hero-collection.jpg"
